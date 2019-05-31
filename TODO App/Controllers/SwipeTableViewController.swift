@@ -20,7 +20,7 @@ class SwipeTableViewController: UITableViewController,SwipeTableViewCellDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
         
         cell.delegate = self
-        
+        tableView.separatorStyle = .none
         return cell
     }
 

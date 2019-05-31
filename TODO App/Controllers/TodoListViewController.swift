@@ -42,6 +42,8 @@ class TodoListViewController: SwipeTableViewController{
         if let item = todoItems?[indexPath.row]{
             cell.textLabel?.text = item.title
             
+            cell.backgroundColor = UIColor(hexString: item.hexColor)
+            
             cell.accessoryType = item.complete == true ? .checkmark : .none
         }else{
             cell.textLabel?.text = "no Item added"
@@ -87,6 +89,7 @@ class TodoListViewController: SwipeTableViewController{
                         let newItem = Item()
                         newItem.title = textField.text!
                         newItem.date = Date()
+                        newItem.hexColor = UIColor.randomFlat.hexValue()
                         currentCategery.items.append(newItem)
                     }
                 }catch{
