@@ -20,8 +20,10 @@ class TodoListViewController: SwipeTableViewController{
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         
        // loadItems()
@@ -29,6 +31,25 @@ class TodoListViewController: SwipeTableViewController{
 //        if let items = defaults.array(forKey: "TodoListArray") as? [ItemModel] {
 //            todoItems = items
 //        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        guard let originalColor = UIColor(hexString: "1D9BF6") else{fatalError()}
+        
+        navigationController?.navigationBar.barTintColor = originalColor
+        navigationController?.navigationBar.tintColor = FlatWhite()
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : FlatWhite() ]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let navBarColor = UIColor(hexString:  selectedCategory!.hexColor)!
+        navigationController?.navigationBar.barTintColor = navBarColor
+        title = selectedCategory!.name
+        searchBar.barTintColor = navBarColor
+        
+        navigationController?.navigationBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true) ]
     }
     
     //MARK - Table view Datasources
@@ -49,6 +70,7 @@ class TodoListViewController: SwipeTableViewController{
             cell.backgroundColor = color
             
             cell.textLabel?.textColor = ContrastColorOf(color!, returnFlat: true)
+            
             
             
             
